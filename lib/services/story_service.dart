@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../local_secrets.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class StoryService {
   // In the future, this will call an AI or backend to generate the story.
@@ -13,8 +14,8 @@ class StoryService {
     required String characters,
     required String other,
   }) async {
-    final apiKey = dotenv.env['OPENAI_API_KEY'];
-    if (apiKey == null || apiKey.isEmpty) {
+    final apiKey = openAIApiKey;
+    if (apiKey.isEmpty) {
       return 'API key not found. Please set OPENAI_API_KEY in your .env file.';
     }
     final url = Uri.parse('https://api.openai.com/v1/chat/completions');
